@@ -37,6 +37,8 @@ jobs:
     name: "QA"
     runs-on: ubuntu-latest
     environment: QA
+    env:
+      GOOGLE_CREDENTIALS: ${{ secrets.google_credentials }}
     needs: Dev
     defaults:
       run:
@@ -67,6 +69,8 @@ jobs:
     name: "Prod"
     runs-on: ubuntu-latest
     environment: Prod
+    env:
+      GOOGLE_CREDENTIALS: ${{ secrets.google_credentials }}
     needs: QA
     defaults:
       run:
