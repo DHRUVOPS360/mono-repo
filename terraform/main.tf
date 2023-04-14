@@ -30,7 +30,7 @@ resource "google_compute_firewall" "github-terraform" {
 }
 
 resource "google_storage_bucket" "bucket" {
-  name     = "terraform-backend-bucket"
+  name     = "dhruv-backend-bucket"
   location = "US"
 
   versioning {
