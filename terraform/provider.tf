@@ -1,8 +1,4 @@
 terraform {
-  backend "gcs" {
-    bucket = "dhruv-backend-bucket"
-    prefix = "terraform/state"
-  }
   required_providers {
     google = {
       source  = "hashicorp/google"
