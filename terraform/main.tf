@@ -29,12 +29,3 @@ resource "google_compute_firewall" "github-terraform" {
   source_ranges = ["0.0.0.0/0"]
 }
 
-resource "google_storage_bucket" "bucket" {
-  name     = "dhruv-backend-bucket"
-  location = "US"
-
-  versioning {
-    enabled = true
-  }
-}
-
