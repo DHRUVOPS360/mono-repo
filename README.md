@@ -9,7 +9,6 @@ The deployment workflow in this repository consists of the following stages:
 - **Dev**: Deploys the resources to the Dev environment. Perform Terraform Init, format in this stage.
 - **QA**: Deploys the resources to the QA environment, which depends on the successful completion of the Dev stage. In addition to the Dev this performs Terraform Plan in this stage.
 - **Prod**: Deploys the resources to the Prod environment, which depends on the successful completion of the QA stage. In addition to the QA this performs Terraform Apply in this stage.
-- **Destroy**: Destroys the resources in the Destroy environment, which depends on the successful completion of the Prod stage. In addition to the Prod this performs Terraform Destroy in this stage.
 
 ## Prerequisites
 
@@ -25,7 +24,7 @@ The repository contains the following files:
 
 - `main.tf`: Terraform configuration file that defines the resources to be created in GCP, including a Google Compute Engine instance and a firewall rule. 
 - `provider.tf`: Terraform configuration file that specifies the provider for GCP and sets the project, region, and zone.
-- `.github/workflows`: Directory containing GitHub Actions workflows for different environments (Dev, QA, Prod, Destroy) that run the Terraform deployment and destroy commands.
+- `.github/workflows`: Directory containing GitHub Actions workflows for different environments (Dev, QA, Prod) that run the Terraform deployment and destroy commands.
 
 ## Usage
 
