@@ -29,7 +29,7 @@ resource "google_compute_firewall" "github-terraform" {
   source_ranges = ["0.0.0.0/0"]
 }
 
-resource "google_storage_bucket" "terraform_backend_bucket" {
+resource "google_storage_bucket" "bucket" {
   name     = "terraform-backend-bucket"
   location = "US"
 
