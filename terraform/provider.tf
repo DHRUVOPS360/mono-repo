@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = google_storage_bucket.bucket.name
+    bucket = "dhruv-backend-bucket"
     prefix = "terraform/state"
   }
   required_providers {
