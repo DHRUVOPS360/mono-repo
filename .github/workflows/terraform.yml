@@ -1,0 +1,104 @@
+name: "Terraform deploy to GCP"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  
+  Dev:
+    name: "Dev"
+    runs-on: ubuntu-latest
+    environment: Dev
+      
+    defaults:
+      run:
+        working-directory: terraform
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.1
+          terraform_wrapper: false
+
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+  QA:
+    name: "QA"
+    runs-on: ubuntu-latest
+    environment: QA
+    env:
+      GOOGLE_CREDENTIALS: ${{ secrets.google_credentials }}
+    needs: Dev
+    defaults:
+      run:
+        working-directory: terraform
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.1
+          terraform_wrapper: false
+    
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan 
+
+  Prod:
+    name: "Prod"
+    runs-on: ubuntu-latest
+    environment: Prod
+    env:
+      GOOGLE_CREDENTIALS: ${{ secrets.google_credentials }}
+    needs: QA
+    defaults:
+      run:
+        working-directory: terraform
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.1
+          terraform_wrapper: false
+     
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan 
+
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -auto-approve
+        
+
