@@ -1,4 +1,8 @@
 terraform {
+  backend "gcs" {
+    bucket = google_storage_bucket.bucket.name
+    prefix = "terraform/state"
+  }
   required_providers {
     google = {
       source  = "hashicorp/google"
