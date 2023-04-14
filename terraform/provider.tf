@@ -1,4 +1,8 @@
 terraform {
+  backend "gcs" {
+    bucket = google_storage_bucket.bucket.name
+    prefix = "terraform/state"
+  }
   required_providers {
     google = {
       source  = "hashicorp/google"
@@ -8,17 +12,11 @@ terraform {
 }
 
 provider "google" {
-  project = "engineer-cloud-nprod"
-  region  = "us-central1"
-  zone    = "us-central1-c"
+  project     = "engineer-cloud-nprod"
+  region      = "us-central1"
+  zone        = "us-central1-c"
 }
 
-terraform {
-  backend "gcs" {
-    bucket      = "terraform-backend-bucket"
-    prefix      = "terraform/state"
-  }
-}
 
 
 
